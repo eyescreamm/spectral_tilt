@@ -1,0 +1,65 @@
+#N canvas 1281 110 887 1150 12;
+#X obj 5 8 cnv 15 552 40 empty empty tilt~ 3 12 0 18 -233017 -66577
+0;
+#X obj 209 277 timeDisplay;
+#X floatatom 271 215 5 0 0 0 - - -;
+#X obj 174 278 dac~;
+#X obj 210 243 tilt~ 39;
+#X obj 209 215 noise~;
+#X obj 274 188 hsl 128 15 10 -10 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X obj 8 534 cnv 15 550 3 empty empty inlets 8 12 0 13 -233017 -66577
+0;
+#X obj 8 635 cnv 15 550 3 empty empty outlets 8 12 0 13 -233017 -66577
+0;
+#X obj 8 777 cnv 15 550 3 empty empty more_info 8 12 0 13 -233017 -66577
+0;
+#X obj 7 692 cnv 15 550 3 empty empty arguments 8 12 0 13 -233017 -66577
+0;
+#X obj 6 832 cnv 15 552 21 empty \$0-pddp.cnv.footer empty 20 12 0
+14 -228856 -66577 0;
+#X obj 95 644 cnv 17 3 17 empty \$0-pddp.cnv.let.0 0 5 9 0 16 -228856
+-162280 0;
+#X text 116 644 signal;
+#X obj 95 545 cnv 17 3 17 empty \$0-pddp.cnv.let.0 0 5 9 0 16 -228856
+-162280 0;
+#X text 115 544 signal;
+#X obj 95 603 cnv 17 3 17 empty \$0-pddp.cnv.let.0 1 5 9 0 16 -228856
+-162280 0;
+#X obj 95 575 cnv 17 3 17 empty \$0-pddp.cnv.let.0 0 5 9 0 16 -228856
+-162280 0;
+#X text 115 574 float;
+#X text 114 604 int;
+#X text 177 597 - a int to the 2nd cold inlet sets the number of poles
+and zeros (0..64), f 53;
+#X text 178 543 - an incoming monophonic signal;
+#X text 177 566 - a float to the 1st cold inlet sets the spectral tilt
+(-10..10), f 53;
+#X text 178 643 - the monophonic signal with specified spectral tilt
+;
+#X text 25 30 The filter of real-time spectral tilt modification;
+#X text 271 169 spectral tilt;
+#X text 274 243 number of poles and zeros;
+#X text 26 65 The [tilt~] object outputs the monophonic signal with
+specific spectral tilt depending on the values of two inlets spectral
+tilt \, number of poles and zeros., f 56;
+#N canvas 331 929 1010 366 META 1;
+#X text 9 134 OUTLET_0 signal;
+#X text 10 68 INLET_0 signal;
+#X text 9 211 WEBSITE www.u-aizu.ac.jp/julian;
+#X text 8 257 comment;
+#X text 9 88 INLET_0 float;
+#X text 9 107 INLET_1 int;
+#X text 9 231 RELEASE_DATE 2022;
+#X text 9 192 AUTHOR Syuto Yoshida;
+#X text 12 5 KEYWORDS spectral tilt;
+#X text 9 167 LIBRARY;
+#X text 11 25 LICENSE;
+#X text 11 45 DESCRIPTION;
+#X restore 499 833 pd META;
+#X connect 2 0 4 1;
+#X connect 4 0 3 0;
+#X connect 4 0 3 1;
+#X connect 4 0 1 0;
+#X connect 5 0 4 0;
+#X connect 6 0 2 0;
