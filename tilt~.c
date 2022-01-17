@@ -21,8 +21,9 @@ t_int *tilt_tilde_perform(t_int *w) {
   t_sample        *out       =     (t_sample *)(w[3]);
   int              n         =     (int)(w[4]);
 
-  double samprate = sys_getsr();
-  double w0 = 2 * 3.141593 * samprate;
+  // double samprate = sys_getsr();
+  double f0 = 20;
+  double w0 = 2 * 3.141593 * f0;
   double tilt = x->tilt;
   int num = x->num;
 
@@ -42,7 +43,8 @@ t_int *tilt_tilde_perform(t_int *w) {
   /* prewarp method */
 
   double mph[num],mzh[num];
-  double sr = 2 * n;
+  // double sr = 2 * n;
+  double sr = 2 * 44100;
 
   for(int i=0; i<num; i++) {
       mph[i] = (t_sample)(w0*(tan(mp[i]/sr))/(tan((w0)/sr)));
@@ -52,7 +54,7 @@ t_int *tilt_tilde_perform(t_int *w) {
   /* bilinear transform */
 
   double g[num],b1[num],b0[num],a1[num];
-  double c  = 1.0/tan(1*0.5/n); //bilinear-transform scale-factor, w1=1
+  double c  = 1.0/tan(1*0.5/44100); //bilinear-transform scale-factor, w1=1
   double d;
   for(int i=0; i<num; i++){
     d     =  mph[i] + c;
@@ -64,19 +66,19 @@ t_int *tilt_tilde_perform(t_int *w) {
 
   /* filter function */
 
-  double sigy[n];
+  double sigy[64];
   for(int i=0; i<num; i++){
-    for(int j=1; j<n; j++){
+    for(int j=1; j<64; j++){
       sigy[0] = b0[i] * in[0];
       sigy[j] = b0[i]*in[j] + b1[i]*in[j-1] - a1[i]*sigy[j-1];
     }
-    for(int k=0; k<n; k++){
+    for(int k=0; k<64; k++){
       in[k] = g[i] * sigy[k];
     }
   }
 
-  double iin[64]={-0.9996, 0.7176, -0.5931, -0.5716, 0.3742, -0.4732, 0.08887, 0.9708, 0.8544, 0.2746,  0.5327, -0.9613, -0.6775, 0.8326, -0.00247, -0.6964, -0.2683, 0.3873, -0.3654, -0.5056, 0.1229, 0.5495, 0.2529, -0.2438, -0.8605, 0.9637, -0.4152, -0.4898, 0.04398, -0.5825, -0.9485, 0.8127, 0.233, 0.4509, 0.02883, 0.2148, 0.253, 0.4658, -0.387, -0.8784, 0.316, -0.6648, -0.1142, 0.6513, 0.3154, 0.5127, 0.6808, 0.9951, -0.659, -0.3581, -0.1517, -0.7237, 0.6952, -0.3345, -0.9784, -0.09022, 0.4085, 0.4351, 0.8822, -0.5389, -0.7452, 0.8205, -0.07444, 0.006087};
-
+  // double iin[64]={-0.9996, 0.7176, -0.5931, -0.5716, 0.3742, -0.4732, 0.08887, 0.9708, 0.8544, 0.2746,  0.5327, -0.9613, -0.6775, 0.8326, -0.00247, -0.6964, -0.2683, 0.3873, -0.3654, -0.5056, 0.1229, 0.5495, 0.2529, -0.2438, -0.8605, 0.9637, -0.4152, -0.4898, 0.04398, -0.5825, -0.9485, 0.8127, 0.233, 0.4509, 0.02883, 0.2148, 0.253, 0.4658, -0.387, -0.8784, 0.316, -0.6648, -0.1142, 0.6513, 0.3154, 0.5127, 0.6808, 0.9951, -0.659, -0.3581, -0.1517, -0.7237, 0.6952, -0.3345, -0.9784, -0.09022, 0.4085, 0.4351, 0.8822, -0.5389, -0.7452, 0.8205, -0.07444, 0.006087};
+  //
   // for(int i=0; i<num; i++){
   //   for(int j=1; j<n; j++){
   //     sigy[0] = b0[i] * iin[0];
@@ -90,14 +92,18 @@ t_int *tilt_tilde_perform(t_int *w) {
   /* mean function */
 
   double x_ave = 0;
-  for(int i=0; i<n; i++){
+  for(int i=0; i<64; i++){
     x_ave += in[i];
   }
   x_ave = x_ave/(double)n;
 
-  for(int i=0; i<n; i++){
+  for(int i=0; i<64; i++){
     out[i] = in[i] - x_ave;
   }
+
+  // for(int i=0; i<n; i++){
+  //   out[i] = iin[i];
+  // }
 
   return (w + 5);
 }
