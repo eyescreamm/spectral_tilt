@@ -1,45 +1,36 @@
-#N canvas 1281 110 887 1150 12;
+#N canvas 446 60 887 1150 12;
 #X obj 5 8 cnv 15 552 40 empty empty tilt~ 3 12 0 18 -233017 -66577
 0;
-#X obj 209 277 timeDisplay;
-#X floatatom 271 215 5 0 0 0 - - -;
-#X obj 174 278 dac~;
-#X obj 210 243 tilt~ 39;
-#X obj 209 215 noise~;
-#X obj 274 188 hsl 128 15 10 -10 0 0 empty empty empty -2 -8 0 10 -262144
--1 -1 0 1;
-#X obj 8 534 cnv 15 550 3 empty empty inlets 8 12 0 13 -233017 -66577
+#X obj 8 398 cnv 15 550 3 empty empty inlets 8 12 0 13 -233017 -66577
 0;
-#X obj 8 635 cnv 15 550 3 empty empty outlets 8 12 0 13 -233017 -66577
+#X obj 8 499 cnv 15 550 3 empty empty outlets 8 12 0 13 -233017 -66577
 0;
-#X obj 8 777 cnv 15 550 3 empty empty more_info 8 12 0 13 -233017 -66577
+#X obj 8 641 cnv 15 550 3 empty empty more_info 8 12 0 13 -233017 -66577
 0;
-#X obj 7 692 cnv 15 550 3 empty empty arguments 8 12 0 13 -233017 -66577
+#X obj 7 556 cnv 15 550 3 empty empty arguments 8 12 0 13 -233017 -66577
 0;
-#X obj 6 832 cnv 15 552 21 empty \$0-pddp.cnv.footer empty 20 12 0
+#X obj 6 696 cnv 15 552 21 empty \$0-pddp.cnv.footer empty 20 12 0
 14 -228856 -66577 0;
-#X obj 95 644 cnv 17 3 17 empty \$0-pddp.cnv.let.0 0 5 9 0 16 -228856
+#X obj 95 508 cnv 17 3 17 empty \$0-pddp.cnv.let.0 0 5 9 0 16 -228856
 -162280 0;
-#X text 116 644 signal;
-#X obj 95 545 cnv 17 3 17 empty \$0-pddp.cnv.let.0 0 5 9 0 16 -228856
+#X text 116 508 signal;
+#X obj 95 409 cnv 17 3 17 empty \$0-pddp.cnv.let.0 0 5 9 0 16 -228856
 -162280 0;
-#X text 115 544 signal;
-#X obj 95 603 cnv 17 3 17 empty \$0-pddp.cnv.let.0 1 5 9 0 16 -228856
+#X text 115 408 signal;
+#X obj 95 467 cnv 17 3 17 empty \$0-pddp.cnv.let.0 1 5 9 0 16 -228856
 -162280 0;
-#X obj 95 575 cnv 17 3 17 empty \$0-pddp.cnv.let.0 0 5 9 0 16 -228856
+#X obj 95 439 cnv 17 3 17 empty \$0-pddp.cnv.let.0 0 5 9 0 16 -228856
 -162280 0;
-#X text 115 574 float;
-#X text 114 604 int;
-#X text 177 597 - a int to the 2nd cold inlet sets the number of poles
+#X text 115 438 float;
+#X text 114 468 int;
+#X text 177 461 - a int to the 2nd cold inlet sets the number of poles
 and zeros (0..64), f 53;
-#X text 178 543 - an incoming monophonic signal;
-#X text 177 566 - a float to the 1st cold inlet sets the spectral tilt
+#X text 178 407 - an incoming monophonic signal;
+#X text 177 430 - a float to the 1st cold inlet sets the spectral tilt
 (-10..10), f 53;
-#X text 178 643 - the monophonic signal with specified spectral tilt
+#X text 178 507 - the monophonic signal with specified spectral tilt
 ;
 #X text 25 30 The filter of real-time spectral tilt modification;
-#X text 271 169 spectral tilt;
-#X text 274 243 number of poles and zeros;
 #X text 26 65 The [tilt~] object outputs the monophonic signal with
 specific spectral tilt depending on the values of two inlets spectral
 tilt \, number of poles and zeros., f 56;
@@ -56,11 +47,26 @@ tilt \, number of poles and zeros., f 56;
 #X text 11 25 LICENSE;
 #X text 11 45 DESCRIPTION;
 #X text 9 211 WEBSITE https://github.com/ShutoYoshida;
-#X restore 499 833 pd META;
-#X text 106 794 https://github.com/ShutoYoshida/spectral_tilt;
-#X connect 2 0 4 1;
-#X connect 4 0 3 0;
-#X connect 4 0 3 1;
-#X connect 4 0 1 0;
-#X connect 5 0 4 0;
-#X connect 6 0 2 0;
+#X restore 499 697 pd META;
+#X text 106 658 https://github.com/ShutoYoshida/spectral_tilt;
+#X text 97 591 An Integer is indicating an equal number of poles and
+zeros.;
+#X floatatom 208 208 5 0 0 0 - - -;
+#X obj 146 323 dac~;
+#X obj 146 236 tilt~ 39;
+#X obj 146 208 noise~;
+#X obj 211 181 hsl 128 15 -10 10 0 0 empty empty empty -2 -8 0 10 -261682
+-1 -1 0 1;
+#X text 208 162 spectral tilt;
+#X text 211 236 number of poles and zeros;
+#X obj 146 281 *~;
+#X obj 211 266 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262130
+-1 -1 0 1;
+#X text 252 280 volume;
+#X connect 23 0 25 1;
+#X connect 25 0 30 0;
+#X connect 26 0 25 0;
+#X connect 27 0 23 0;
+#X connect 30 0 24 0;
+#X connect 30 0 24 1;
+#X connect 31 0 30 1;
