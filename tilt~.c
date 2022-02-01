@@ -70,7 +70,7 @@ t_int *tilt_tilde_perform(t_int *w) {
 
   /* filter function */
   t_float sigy[n];
-  for(int i=0; i<1; i++){
+  for(int i=0; i<=num-1; i++){
     for(int j=1; j<n; j++){
       sigy[0] = b0[i] * in[0];
       sigy[j] = b0[i]*in[j] + b1[i]*in[j-1] - a1[i]*sigy[j-1];
