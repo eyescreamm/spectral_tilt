@@ -53,6 +53,14 @@ t_int *tilt_tilde_perform(t_int *w) {
   t_sample        *out       =     (t_sample *)(w[3]);
   int              n         =     (int)(w[4]);
 
+  /*pick the max input*/
+  t_float max_in = 0;
+  for(int i=0; i<n; i++){
+    if(max_in<fabsf(in[i])){
+      max_in = fabsf(in[i]);
+    }
+  }
+
   /* decide poles and zeros */
   int num = x->num;
   t_float mp[num],mz[num];
@@ -80,16 +88,28 @@ t_int *tilt_tilde_perform(t_int *w) {
     }
   }
 
-  /* mean function */
-  t_float x_ave = 0;
-  for(int i=0; i<n; i++){
-    x_ave += in[i];
+/* pick the max output*/
+t_float max_out = 0;
+for(int i=0; i<n; i++){
+  if(max_out<fabsf(in[i])){
+    max_out = fabsf(in[i]);
   }
-  x_ave = x_ave/n;
-  for(int i=0; i<n; i++){
-    out[i] = in[i] - x_ave;
-  }
+}
+/* adjustment of amplitude */
+for(int i=0; i<n; i++){
+  out[i] = in[i]/(max_in*max_out);
+}
 
+  /* mean function */
+//   t_float x_ave = 0;
+//   for(int i=0; i<n; i++){
+//     x_ave += in[i];
+//   }
+//   x_ave = x_ave/n;
+//   for(int i=0; i<n; i++){
+//     out[i] = in[i] - x_ave;
+//   }
+//
   return (w + 5);
 }
 
