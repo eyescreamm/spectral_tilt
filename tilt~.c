@@ -96,8 +96,8 @@ t_int *tilt_tilde_perform(t_int *w) {
 /* register singen_tilde to the dsp tree */
 void tilt_tilde_dsp(t_tilt_tilde *x, t_signal **sp) {
   x->f0 = 20;
-  x->w0 = 2.0 * 3.14159265358979323846 * 20;
-  x->r = 1.2;
+  x->w0 = 2.0 * 3.14159265358979323846 * x->f0;
+  x->r = 1.03;
   dsp_add(tilt_tilde_perform,
       4, /* number of following pointers */
       x,
