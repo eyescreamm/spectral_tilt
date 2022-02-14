@@ -97,7 +97,7 @@ for(int i=0; i<n; i++){
 }
 /* adjustment of amplitude */
 for(int i=0; i<n; i++){
-  out[i] = in[i]/(max_in*max_out);
+  out[i] = in[i]*max_in/max_out;
 }
 
   /* mean function */
